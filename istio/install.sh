@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo
+echo
+echo "http://solarmesh.cn"
+echo
+
 # Install Multi-Primary on different networks
 
 export CTX_CLUSTER1_NAME=cluster01

@@ -3,15 +3,9 @@
 #####################################
 #
 # Set up two kind clusters:
-#   1. a management plane which will have a service-mesh-hub namespace, and
+#   1. a management cluster
 #   2. a target cluster
 #
-# The management plane will have the appropriate secret for communicating with the target cluster
-# Your kube context will be left pointing to the management plane cluster
-# The target cluster will have Istio set up in the istio-system namespace in its demo profile
-#
-# To clean up **ALL** of your kind clusters, run this script as: `bash ci/setup-kind.sh cleanup`
-# I had some trouble with the docker VM running out of disk space- run this cleanup step often if you can
 #
 #####################################
 
@@ -32,17 +26,10 @@ endpoint=''
 
 echo
 echo
-echo "Welcome to use SolarMesh"
+echo "http://solarmesh.cn"
 echo
 status=1
 spin="/-\|"
-#  while true; do
-#     for (( i=0; i<${#spin}; i++ )); do
-#       echo -en "${spin:$i:1} Status ${status} / 1" "\r"
-#       sleep 0.2
-#     done
-#  done 
-# exit  
 
 user_memory=$(free | awk '{print $7}' | awk 'NR==2')
 min_memory=4091456
