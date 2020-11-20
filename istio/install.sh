@@ -25,8 +25,11 @@ ISTIO_MINOR_VER=0
 work_dir="$PWD"
 istio_dir="$work_dir/istio-${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}"
 
-export PATH=$istio_dir/bin:$PATH
+wget https://storage.googleapis.com/istio-release/releases/${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}/istio-${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}-linux-amd64.tar.gz
 
+tar xvf istio-${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}-linux-amd64.tar.gz
+
+export PATH=$istio_dir/bin:$PATH
 
 function shutdown() {
   tput cnorm # reset cursor

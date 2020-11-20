@@ -16,15 +16,17 @@ cd istio-1.8
 First of all, you need to install docker and prepare two Kubernetes clusters, in my case, I chose [Kind](https://kind.sigs.k8s.io/) for the sake of simplicity.
 
 ```bash
-kind/setup.sh cluster01 6443
-kind/setup.sh cluster02 6444
+cd kind
+setup.sh cluster01 6443
+setup.sh cluster02 6444
+cd ..
 ```
 
 ## Install Istio with one step
 
 ```bash
 
-istio/install.sh
+cd istio && install.sh
 
 ```
 
