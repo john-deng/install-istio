@@ -78,4 +78,4 @@ Hello version: v1, instance: helloworld-v1-578dd69f69-sbvc9
 
 Congratulations! You successfully installed and verified Istio on multiple clusters!
 
-if you are insterested Service Mesh, find us [here](http://solarmesh.cn).
+if you are interested in Service Mesh, find us [here](http://solarmesh.cn).
