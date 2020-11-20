@@ -17,8 +17,8 @@ First of all, you need to install docker and prepare two Kubernetes clusters, in
 
 ```bash
 cd kind
-setup.sh cluster01 6443
-setup.sh cluster02 6444
+./setup.sh cluster01 6443
+./setup.sh cluster02 6444
 cd ..
 ```
 
@@ -26,7 +26,7 @@ cd ..
 
 ```bash
 
-cd istio && install.sh
+cd istio && ./install.sh
 
 ```
 
