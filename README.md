@@ -7,7 +7,7 @@ Istio 1.8.0 just released, the greatest new feature is that the mulitcluster ins
 Clone the this project in the terminal, 
 
 ```bash
-git clone git@github.com:john-deng/istio-1.8.git
+git clone https://github.com/john-deng/istio-1.8.git
 cd istio-1.8
 ```
 
