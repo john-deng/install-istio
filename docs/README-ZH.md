@@ -1,21 +1,21 @@
-[中文文档](./docs/README-ZH.md)
+[英文文档](../README.md)
 
-# Istio 1.8 Multiple Cluster Installation with one step
+# 一步安装istio 1.8多集群
 
-Istio 1.8.0 just released, the greatest new feature is that the mulitcluster installation is simplified and I simplified the installation even futher, only one step is needed.
+Istio 1.8.0刚刚发布，最大的新特性就是简化了mulitcluster的安装，我把安装更加的简化，只需要一步。
 
 ## Clone this project
 
-Clone the this project in the terminal
+在 terminal 克隆这个项目
 
 ```bash
 git clone https://github.com/john-deng/istio-1.8.git
 cd istio-1.8
 ```
 
-## Prerequisition
+## 安装前的准备
 
-First of all, you need to install docker and prepare two Kubernetes clusters, in my case, I chose [Kind](https://kind.sigs.k8s.io/) for the sake of simplicity.
+首先，你需要安装docker，并准备两个Kubernetes集群，在我的例子中，为了简单起见，我选择了[Kind](https://kind.sigs.k8s.io/)。
 
 ```bash
 
@@ -24,7 +24,7 @@ First of all, you need to install docker and prepare two Kubernetes clusters, in
 
 ```
 
-## Install Istio with one step
+## 一步安装istio
 
 ```bash
 
@@ -32,11 +32,11 @@ First of all, you need to install docker and prepare two Kubernetes clusters, in
 
 ```
 
-## Verifying Cross-Cluster Traffic
+## 验证跨集群流量
 
-To verify that cross-cluster load balancing works as expected, call the HelloWorld service several times using the Sleep pod. To ensure load balancing is working properly, call the HelloWorld service from all clusters in your deployment.
+要验证跨集群负载均衡是否按预期工作，请使用 Sleep pod 多次调用 HelloWorld 服务。为确保负载均衡工作正常，请从部署中的所有集群调用HelloWorld服务。
 
-Send one request from the Sleep pod on cluster1 to the HelloWorld service:
+从集群1上的Sleep pod向HelloWorld服务发送一个请求：
 
 ```bash
 while true; do
@@ -47,7 +47,7 @@ kubectl exec --context=kind-cluster01 -n sample -c sleep \
 done
 ```
 
-Repeat this request several times and verify that the HelloWorld version should toggle between v1 and v2:
+重复这个请求几次，并验证HelloWorld的版本应该在v1和v2之间切换：
 
 ```bash
 Hello version: v2, instance: helloworld-v2-776f74c475-h7rd9
@@ -58,7 +58,7 @@ Hello version: v1, instance: helloworld-v1-578dd69f69-sbvc9
 Hello version: v2, instance: helloworld-v2-776f74c475-h7rd9
 ```
 
-Now repeat this process from the Sleep pod on cluster2:
+现在从集群2上重复这个过程
 
 ```bash
 while true; do
@@ -70,7 +70,7 @@ done
 
 ```
 
-Repeat this request several times and verify that the HelloWorld version should toggle between v1 and v2:
+重复这个请求几次，并验证HelloWorld的版本应该在v1和v2之间切换。
 
 ```bash
 Hello version: v2, instance: helloworld-v2-776f74c475-h7rd9
@@ -80,6 +80,6 @@ Hello version: v2, instance: helloworld-v2-776f74c475-h7rd9
 Hello version: v1, instance: helloworld-v1-578dd69f69-sbvc9
 ```
 
-Congratulations! You successfully installed and verified Istio on multiple clusters!
+可以看到，我们成功地在多个集群上安装并验证了istio!
 
-if you are interested in Service Mesh, find us [here](http://solarmesh.cn).
+如果您对Service Mesh感兴趣，请关注我们的项目[SolarMesh](http://solarmesh.cn)。
