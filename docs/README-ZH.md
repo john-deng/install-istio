@@ -1,35 +1,22 @@
 [英文文档](../README.md)
 
-# 一步安装istio 1.8多集群
+# 一步安装istio多集群
 
-Istio 1.8.0刚刚发布，最大的新特性就是简化了mulitcluster的安装，我把安装更加的简化，只需要一步。
+当每次 Istio 有新版本发布，如果你跃跃欲试，那你找对地方了，本工具将安装步骤简化成只需要一步即可安装Istio多集群。
 
-## Clone this project
+## 安装前的准备工作
 
-在 terminal 克隆这个项目
+首先你要准备好两个安装好的K8s集群，如果你觉得安装K8s集群太麻烦，建议你使用KinD工具来快速安装K8s，别担心，我已经准备好了另外一个意见安装K8s的工具[mercury](https://github.com/solarmesh-io/mercury), 去[这里](https://github.com/solarmesh-io/mercury)看详细信息。
 
-```bash
-git clone https://github.com/john-deng/istio-1.8.git
-cd istio-1.8
-```
 
-## 安装前的准备
+## 安装Istio多集群
 
-首先，你需要安装docker，并准备两个Kubernetes集群，在我的例子中，为了简单起见，我选择了[Kind](https://kind.sigs.k8s.io/)。
+当你准备好了两个K8s集群之后，在 terminal 克隆这个项目
 
 ```bash
-
-./setup.sh cluster01 6443
-./setup.sh cluster02 6444
-
-```
-
-## 一步安装istio
-
-```bash
-
-./install.sh
-
+git clone https://github.com/john-deng/install-istio.git
+cd install-istio
+./install 1.9.0 # 参数 1.9.0 表示你要安装 Istio 1.9.0
 ```
 
 ## 验证跨集群流量
@@ -40,8 +27,8 @@ cd istio-1.8
 
 ```bash
 while true; do
-kubectl exec --context=kind-cluster01 -n sample -c sleep \
-    "$(kubectl get pod --context=kind-cluster01 -n sample -l \
+kubectl exec --context=kind-cluster1 -n sample -c sleep \
+    "$(kubectl get pod --context=kind-cluster1 -n sample -l \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
     -- curl -s helloworld.sample:5000/hello
 done
@@ -62,8 +49,8 @@ Hello version: v2, instance: helloworld-v2-776f74c475-h7rd9
 
 ```bash
 while true; do
-kubectl exec --context=kind-cluster02 -n sample -c sleep \
-    "$(kubectl get pod --context=kind-cluster02 -n sample -l \
+kubectl exec --context=kind-cluster2 -n sample -c sleep \
+    "$(kubectl get pod --context=kind-cluster2 -n sample -l \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
     -- curl -s helloworld.sample:5000/hello
 done
