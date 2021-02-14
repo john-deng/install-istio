@@ -1,14 +1,10 @@
 #!/bin/bash
 
-echo
-echo
-echo "http://solarmesh.cn"
-echo
 
 # Install Multi-Primary on different networks
 
-export CTX_CLUSTER1_NAME=cluster01
-export CTX_CLUSTER2_NAME=cluster02
+export CTX_CLUSTER1_NAME=cluster1
+export CTX_CLUSTER2_NAME=cluster2
 
 export CTX_CLUSTER1=kind-${CTX_CLUSTER1_NAME}
 export CTX_CLUSTER2=kind-${CTX_CLUSTER2_NAME}
@@ -19,15 +15,19 @@ export CTX_CLUSTER2_MESH_NAME=mesh2
 export CTX_CLUSTER1_NETWORK=network1
 export CTX_CLUSTER2_NETWORK=network2
 
-ISTIO_MAJOR_VER=1.8
-ISTIO_MINOR_VER=0
+ISTIO_VER=${1:-1.8.0}
+
+echo
+echo "Installing Istio ${ISTIO_VER} multiclusters, this tool is presented by solarmesh.cn"
+echo
 
 work_dir="$PWD"
-istio_dir="$work_dir/istio-${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}"
+istio_dir="$work_dir/istio-${ISTIO_VER}"
 
-wget https://storage.googleapis.com/istio-release/releases/${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}/istio-${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}-linux-amd64.tar.gz
-
-tar xvf istio-${ISTIO_MAJOR_VER}.${ISTIO_MINOR_VER}-linux-amd64.tar.gz
+if [[ ! -f istio-${ISTIO_VER}-linux-amd64.tar.gz ]]; then
+  wget https://storage.googleapis.com/istio-release/releases/${ISTIO_VER}/istio-${ISTIO_VER}-linux-amd64.tar.gz
+  tar xvf istio-${ISTIO_VER}-linux-amd64.tar.gz
+fi
 
 export PATH=$istio_dir/bin:$PATH
 

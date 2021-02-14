@@ -1,35 +1,22 @@
 [中文文档](./docs/README-ZH.md)
 
-# Istio 1.8 Multiple Cluster Installation with one step
+# Istio Multiple Cluster Installation with one step
 
-Istio 1.8.0 just released, the greatest new feature is that the mulitcluster installation is simplified and I simplified the installation even futher, only one step is needed.
+Once an Istio new version is released, you may want to try and evaluate what is new in this version, here is the simplest way to do it, just one step is needed.
 
-## Clone this project
+## Prerequisites
+
+Prepare two kubernetes clusters, I recommend to use KinD for the sake of testing and I've already made a tool called [mercury](https://github.com/solarmesh-io/mercury) for you.
+
+
+## Getting started
 
 Clone the this project in the terminal
 
 ```bash
-git clone https://github.com/john-deng/istio-1.8.git
-cd istio-1.8
-```
-
-## Prerequisition
-
-First of all, you need to install docker and prepare two Kubernetes clusters, in my case, I chose [Kind](https://kind.sigs.k8s.io/) for the sake of simplicity.
-
-```bash
-
-./setup.sh cluster01 6443
-./setup.sh cluster02 6444
-
-```
-
-## Install Istio with one step
-
-```bash
-
-./install.sh
-
+git clone https://github.com/john-deng/install-istio.git
+cd install-istio
+./install 1.9.0
 ```
 
 ## Verifying Cross-Cluster Traffic
@@ -40,8 +27,8 @@ Send one request from the Sleep pod on cluster1 to the HelloWorld service:
 
 ```bash
 while true; do
-kubectl exec --context=kind-cluster01 -n sample -c sleep \
-    "$(kubectl get pod --context=kind-cluster01 -n sample -l \
+kubectl exec --context=kind-cluster1 -n sample -c sleep \
+    "$(kubectl get pod --context=kind-cluster1 -n sample -l \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
     -- curl -s helloworld.sample:5000/hello
 done
@@ -62,8 +49,8 @@ Now repeat this process from the Sleep pod on cluster2:
 
 ```bash
 while true; do
-kubectl exec --context=kind-cluster02 -n sample -c sleep \
-    "$(kubectl get pod --context=kind-cluster02 -n sample -l \
+kubectl exec --context=kind-cluster2 -n sample -c sleep \
+    "$(kubectl get pod --context=kind-cluster2 -n sample -l \
     app=sleep -o jsonpath='{.items[0].metadata.name}')" \
     -- curl -s helloworld.sample:5000/hello
 done
